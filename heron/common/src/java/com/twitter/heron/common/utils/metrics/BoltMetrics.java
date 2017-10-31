@@ -92,8 +92,8 @@ public class BoltMetrics implements ComponentMetrics {
 
   public void ackedTuple(String streamId, String sourceComponent, long latency) {
     ackCount.incr();
-    LOG.log(Level.SEVERE, "debug info: ack() called");
     processLatency.update(latency);
+    LOG.log(Level.SEVERE, "BoltMetrics debug info: ack() called");
   }
 
   public void failedTuple(String streamId, String sourceComponent, long latency) {
