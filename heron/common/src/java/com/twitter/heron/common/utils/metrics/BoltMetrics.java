@@ -14,6 +14,9 @@
 
 package com.twitter.heron.common.utils.metrics;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.twitter.heron.api.metric.CountMetric;
 import com.twitter.heron.api.metric.MeanReducer;
 import com.twitter.heron.api.metric.MeanReducerState;
@@ -33,6 +36,8 @@ import com.twitter.heron.common.utils.topology.TopologyContextImpl;
  */
 
 public class BoltMetrics implements ComponentMetrics {
+  private static final Logger LOG = Logger.getLogger(BoltMetrics.class.getName());
+
   private final CountMetric ackCount;
   private final ReducedMetric<MeanReducerState, Number, Double> processLatency;
   private final ReducedMetric<MeanReducerState, Number, Double> failLatency;
@@ -87,6 +92,7 @@ public class BoltMetrics implements ComponentMetrics {
 
   public void ackedTuple(String streamId, String sourceComponent, long latency) {
     ackCount.incr();
+    LOG.log(Level.SEVERE, "debug info: ack() called");
     processLatency.update(latency);
   }
 
